@@ -25,7 +25,7 @@ export async function POST(Request: NextRequest) {
     const readable = new ReadableStream({
       async start(controller) {
         for await (const chunk of stream) {
-          const content = chunk.candidates[0].content.parts[0].text || "";
+          const content = chunk?.candidates[0].content.parts[0].text || "";
           if (content) {
             controller.enqueue(
               encoder.encode(JSON.stringify(content + "\n\n"))
