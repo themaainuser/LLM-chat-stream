@@ -3,23 +3,24 @@ import { NextRequest } from "next/server";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const genai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
 export async function POST(Request: NextRequest) {
   try {
     const { message } = await Request.json();
-    // console.log(message + " this is message");
     const conversation = await genai.models.generateContent({
-      model: "gemini-2.0-flash",
+      // model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       contents: message,
       // config: {
       //   maxOutputTokens: 2000,
       // },
     });
 
-    console.log(conversation + "this is conversation");
+    console.log(JSON.stringify(conversation) + "this is conversation");
 
     return Response.json(
       {
-        res: conversation,
+        res: conversation!.candidates![0].content!.parts![0].text,
       },
       { status: 200 }
     );

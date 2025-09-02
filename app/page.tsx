@@ -13,8 +13,32 @@ export default function Home() {
   const handleChat = async () => {
     setLoading(true);
     setResponse("");
+    // try {
+    //   const chatResponse = await fetch("/api/chat/openai", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ message }),
+    //   });
+    //   const data = await chatResponse.json();
+    //   console.log("API Response:", data);
+
+    //   const text = data?.res?.candidates?.[0]?.content?.[0]?.text;
+    //   // const chat = data.res.choices[0].content.message.text;
+    //   const chat = data.res;
+    //   if (chat) {
+    //     setResponse(chat);
+    //   } else {
+    //     setResponse("Unexpected response format.");
+    //   }
+    // } catch (error: any) {
+    //   setResponse(error.message + " response error");
+    // } finally {
+    //   setLoading(false);
+    // }
     try {
-      const chatResponse = await fetch("/api/chat/openai", {
+      const chatResponse = await fetch("/api/chat/gemini", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +48,7 @@ export default function Home() {
       const data = await chatResponse.json();
       console.log("API Response:", data);
 
-      const text = data?.res?.candidates?.[0]?.content?.[0]?.text;
+      // const text = data?.res?.candidates?.[0]?.content?.[0]?.text;
       // const chat = data.res.choices[0].content.message.text;
       const chat = data.res;
       if (chat) {
